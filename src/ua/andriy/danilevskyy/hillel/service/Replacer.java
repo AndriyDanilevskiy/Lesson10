@@ -2,7 +2,7 @@ package ua.andriy.danilevskyy.hillel.service;
 
 public class Replacer extends Thread {
 
-    float[] arr;
+    private final float[] arr;
 
     public Replacer(float[] arr) {
         this.arr = arr;

@@ -1,14 +1,14 @@
 package ua.andriy.danilevskyy.hillel;
 
-import ua.andriy.danilevskyy.hillel.service.Replacer;
-
 import java.util.Arrays;
+
+import static ua.andriy.danilevskyy.hillel.service.Calculation.calculateInThreads;
 
 public class ValueCalculator {
 
-    int size = 1000000;
-    int halfSize = size / 2;
-    float[] arr = new float[size];
+    private final int size = 1000000;
+    private final int halfSize = size / 2;
+    private float[] arr = new float[size];
 
     public void doCalc() throws InterruptedException {
         long start = System.currentTimeMillis();
@@ -21,14 +21,7 @@ public class ValueCalculator {
         System.arraycopy(arr, 0, a1, 0, halfSize);
         System.arraycopy(arr, halfSize, a2, 0, halfSize);
 
-        Thread t1 = new Replacer(a1);
-        Thread t2 = new Replacer(a2);
-
-        t1.start();
-        t2.start();
-
-        t1.join();
-        t2.join();
+        calculateInThreads(a1, a2);
 
         System.arraycopy(a1, 0, arr, 0, halfSize);
         System.arraycopy(a2, 0, arr, halfSize, halfSize);
